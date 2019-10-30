@@ -35,6 +35,8 @@ RSpec.describe ShortUrl, type: :model do
 
   describe "existing short_url instance" do
 
+    include ActiveJob::TestHelper
+
     let(:short_url) { ShortUrl.create(full_url: "https://www.beenverified.com/faq/") }
 
     it "has a short code" do
@@ -48,9 +50,14 @@ RSpec.describe ShortUrl, type: :model do
     end
 
     it "fetches the title" do
+      #I decided to add these lines to wait for the execution of the background work.
       short_url.update_title!
+      expect(short_url.title).to be_nil
+      perform_enqueued_jobs
+      short_url.reload
       expect(short_url.title).to eq("Frequently Asked Questions | BeenVerified")
     end
+
 
     context "with a higher id" do
 
@@ -59,11 +66,15 @@ RSpec.describe ShortUrl, type: :model do
 
       it "has the short_code for id 1001" do
         short_url.update_column(:id, 1001)
+        # If ID is changed, short_code needs be refresh
+        short_url.set_short_code
         expect(short_url.short_code).to eq("g9")
       end
 
       it "has the short_code for id for 50" do
         short_url.update_column(:id, 50)
+        # If ID is changed, short_code needs be refresh
+        short_url.set_short_code
         expect(short_url.short_code).to eq("O")
       end
     end
