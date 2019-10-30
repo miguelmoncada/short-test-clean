@@ -27,3 +27,12 @@
 # Checking your short URL redirect
 
     curl -I http://localhost:3000/short_urls/1
+    
+
+Short code generator for Url
+
+Basically, I'm taking the ShortUrl ID and converting it, from Base10 to Base62, and using it as short_code.
+
+Note: This line generates a connection error, but apparently it creates the database, my development environment set up is: 
+Ubuntu 18.04 LTS, Docker 19.03.4 and Docker Compose 1.24.1   
+line => docker-compose run short-app rails db:setup && rails db:migrate
