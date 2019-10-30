@@ -26,4 +26,4 @@
 
 # Checking your short URL redirect
 
-    curl -I http://localhost:3000/short_urls/g
+    curl -I http://localhost:3000/short_urls/1
