@@ -22,8 +22,8 @@
 
 # Getting the top 100
 
-    curl localhost:3000
+    curl -X GET http://localhost:3000/short_urls.json
 
 # Checking your short URL redirect
 
-    curl -I localhost:3000/abc
+    curl -I http://localhost:3000/short_urls/g
