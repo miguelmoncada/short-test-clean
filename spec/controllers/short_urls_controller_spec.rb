@@ -5,8 +5,8 @@ RSpec.describe ShortUrlsController, type: :controller do
   let(:parsed_response) { JSON.parse(response.body) }
 
   describe "index" do
-
-    let!(:short_url) { ShortUrl.create(full_url: "https://www.test.rspec") }
+    # The URL https://wwww.test.rspec/ is no longer working
+    let!(:short_url) { ShortUrl.create(full_url: "https://rspec.info/") }
     let(:public_attributes) do
       {
         "title"       => short_url.title,
@@ -32,20 +32,20 @@ RSpec.describe ShortUrlsController, type: :controller do
   describe "create" do
 
     it "creates a short_url" do
-      post :create, params: { full_url: "https://www.test.rspec" }, format: :json
+      post :create, params: { full_url: "https://rspec.info/" }, format: :json
       expect(parsed_response['short_code']).to be_a(String)
     end
 
     it "does not create a short_url" do
       post :create, params: { full_url: "nope!" }, format: :json
-      expect(parsed_response['errors']).to be_include("Full url is not a valid url")
+      expect(parsed_response['errors']).to be_include("Validation failed: Full url is not a valid url")
     end
 
   end
 
   describe "show" do
 
-    let!(:short_url) { ShortUrl.create(full_url: "https://www.test.rspec") }
+    let!(:short_url) { ShortUrl.create!(full_url: "https://rspec.info/") }
 
     it "redirects to the full_url" do
       get :show, params: { id: short_url.short_code }, format: :json
