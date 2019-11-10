@@ -6,8 +6,16 @@ Rails.application.routes.draw do
   require 'resque/server'
   mount Resque::Server, at: '/admin/jobs'
 
-  resources :short_urls, only: [:index, :create, :show]
+  namespace :api do
+    namespace :v1 do
+      resources :short_urls,               only: [:index, :new, :create, :show]
+    end
+  end
 
-  root to: redirect("/short_urls")
+  root to: "pages#home"
+
+  get '/short-code/*path' => "pages#short_code"
+
+  get '/*path' => "pages#home"
 
 end
