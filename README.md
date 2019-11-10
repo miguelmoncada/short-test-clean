@@ -1,6 +1,12 @@
 # Intial Setup
 
     docker-compose build
+    # Before to run next line, make shure you have node_module folder in /app
+    docker-compose run short-app rails webpacker:install
+    docker-compose run short-app rails webpacker:install:react
+    docker-compose run short-app rails generate react:install 
+    docker-compose run short-app yarn add react-mdl react-router-dom react-bootstrap bootstrap notiflix-react    
+    
     docker-compose run short-app rails db:setup && rails db:migrate
 
 # To run the specs
