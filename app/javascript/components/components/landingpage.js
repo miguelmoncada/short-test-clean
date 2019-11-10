@@ -57,7 +57,7 @@ class Landing extends Component {
         Swal.fire({
             icon: 'info',
             title: "Your new URL is: http://localhost:3000/short-code/" + short_code ,
-            text: 'You can type this URL in the browser and watch the result',
+            text: 'You can type this URL in the browser and see the result',
         });
     }
 
