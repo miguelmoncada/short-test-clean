@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Cell } from 'react-mdl';
 import Notiflix from "notiflix-react";
+import { createConsumer } from "@rails/actioncable"
 
 const CustomHeader = (props) => (
     <div className={ "th text-center col-md-" + props.columns }>
@@ -38,6 +39,7 @@ class Landing extends Component {
     constructor(props) {
         super(props)
         this.state = { urls: [] }
+        this.createSocket();
     }
 
     fetchUrlsList = () => {
@@ -64,12 +66,7 @@ class Landing extends Component {
     componentDidMount() {
         Notiflix.Loading.Init({ svgColor: '#F0F8FF' });
         Notiflix.Loading.Dots('Loading URLs...');
-        clearInterval(this.interval);
-        this.interval = setInterval(() => this.fetchUrlsList() , 1000  );
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.interval)
+        this.fetchUrlsList()
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -77,6 +74,16 @@ class Landing extends Component {
             return false
         }
         return true;
+    }
+
+    createSocket() {
+        let cable = createConsumer('http://localhost:3000/cable');
+        this.urls = cable.subscriptions.create("UrlsListChannel", {
+            connected: () => {},
+            received: (data) => {
+                this.setState( { urls: data['urls']  });
+            },
+        });
     }
 
     render() {
