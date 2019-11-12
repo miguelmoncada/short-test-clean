@@ -36,8 +36,8 @@ class NewUrl extends Component {
                         if ( data['error'] == null) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Your new URL is: http://localhost:3000/short-code/' + data['short_code'],
-                                text: 'New URL Saved!',
+                                title: 'Your New Shortened URL is: http://localhost:3000/short-code/' + data['short_code'],
+                                text: 'New Shortened URL Saved!',
                             });
                             this.setState({ inputNewURL: '' })
                         } else {
@@ -62,13 +62,13 @@ class NewUrl extends Component {
             <div className="form-body body-color">
                 <Grid className="form-grid">
                     <Cell col={12}>
-                        <h3>New URL</h3>
+                        <h3>New Shortened URL</h3>
                     </Cell>
                 </Grid>
                 <Grid className="form-grid">
                     <Cell col={12}>
                         <Textfield
-                            label="Enter a URL, example: https://www.test.com"
+                            label="Enter a Full URL, example: https://www.test.com"
                             floatingLabel
                             onChange={ e => this.setState({inputNewURL: e.target.value }) }
                             style={{width: '95%'}}

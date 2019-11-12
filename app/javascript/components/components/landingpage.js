@@ -73,7 +73,7 @@ class Landing extends Component {
     showInfoURL= (short_code) => {
         Swal.fire({
             icon: 'info',
-            title: "Your new URL is: http://localhost:3000/short-code/" + short_code ,
+            title: "Your New Shortened URL is: http://localhost:3000/short-code/" + short_code ,
             text: 'You can open this URL in a new Tab and see the result',
             showCancelButton: true,
             cancelButtonText: 'Close',
@@ -178,7 +178,7 @@ class Landing extends Component {
                                     >
                                         <div className="btn-group mt-2">
                                             <CustomSmallButton
-                                                tooltipTitle="Open link"
+                                                tooltipTitle="Open New Shortened URL"
                                                 onClick={ () => this.openShortCode(url.short_code) }
                                             >
                                                 <i className="fa fa-link"></i>
