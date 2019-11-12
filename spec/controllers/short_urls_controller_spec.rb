@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ShortUrlsController, type: :controller do
+RSpec.describe Api::V1::ShortUrlsController, type: :controller do
 
   let(:parsed_response) { JSON.parse(response.body) }
 
@@ -38,7 +38,7 @@ RSpec.describe ShortUrlsController, type: :controller do
 
     it "does not create a short_url" do
       post :create, params: { full_url: "nope!" }, format: :json
-      expect(parsed_response['errors']).to be_include("Validation failed: Full url is not a valid url")
+      expect(parsed_response['error']).to be_include("Validation failed: Full url is not a valid url")
     end
 
   end
