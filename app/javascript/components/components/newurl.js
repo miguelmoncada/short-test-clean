@@ -36,7 +36,7 @@ class NewUrl extends Component {
                         if ( data['error'] == null) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Your new Short Code is: ' + data['short_code'],
+                                title: 'Your new URL is: http://localhost:3000/short-code/' + data['short_code'],
                                 text: 'New URL Saved!',
                             });
                             this.setState({ inputNewURL: '' })
