@@ -1,7 +1,8 @@
-class ShortUrlsController < ApplicationController
+class Api::V1::ShortUrlsController < ActionController::API
 
-  # Since we're working on an API, we don't have authenticity tokens
-  skip_before_action :verify_authenticity_token
+  include Response
+  include ExceptionHandler
+
   before_action :set_short_url, only: %i[show]
   before_action :validate_link_status, only: %i[create]
 
@@ -34,7 +35,5 @@ class ShortUrlsController < ApplicationController
   def validate_link_status
     open(params[:full_url])
   end
-
-
 
 end
