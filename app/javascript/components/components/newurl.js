@@ -97,7 +97,7 @@ class NewUrl extends Component {
                                     raised
                                     style={{width: '100%'}}
                                 >
-                                    Send URL
+                                    Save URL
                                 </Button>
                             </Cell>
                         </Grid>
