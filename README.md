@@ -66,4 +66,4 @@ info about the new url with the short code.
 
 - Also, you can check your short code in this route: http://localhost:3000/short-code/"short_code"
 
-- To add anew URL, go to: http://localhost:3000/new-url
+- To add a new URL, go to: http://localhost:3000/new-url
