@@ -74,7 +74,16 @@ class Landing extends Component {
         Swal.fire({
             icon: 'info',
             title: "Your new URL is: http://localhost:3000/short-code/" + short_code ,
-            text: 'You can type this URL in the browser and see the result',
+            text: 'You can open this URL in a new Tab and see the result',
+            showCancelButton: true,
+            cancelButtonText: 'Close',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Open in new Tab',
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.value) {
+                window.open( "http://localhost:3000/short-code/" + short_code, '_blank')
+            }
         });
     }
 
