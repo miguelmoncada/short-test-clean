@@ -36,13 +36,28 @@ const CustomSmallButton = (props) => (
 
 class Landing extends Component {
 
+    _isMounted = false;
+
     constructor(props) {
         super(props)
         this.state = { urls: [] }
-        this.createSocket();
+        this._createSocket();
     }
 
-    fetchUrlsList = () => {
+    _createSocket = () => {
+        let cable = createConsumer('http://localhost:3000/cable');
+        this.urls = cable.subscriptions.create("UrlsListChannel", {
+            connected: () => {},
+            received: (data) => {
+                if (this._isMounted) {
+                    this.setState( { urls: data['urls']  });
+                }
+            },
+        });
+
+    }
+
+    _fetchUrlsList = () => {
         fetch('http://localhost:3000/api/v1/short_urls.json')
             .then(res => res.json())
             .then(data => {
@@ -66,7 +81,8 @@ class Landing extends Component {
     componentDidMount() {
         Notiflix.Loading.Init({ svgColor: '#F0F8FF' });
         Notiflix.Loading.Dots('Loading URLs...');
-        this.fetchUrlsList()
+        this._isMounted = true;
+        this._fetchUrlsList()
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -76,14 +92,8 @@ class Landing extends Component {
         return true;
     }
 
-    createSocket() {
-        let cable = createConsumer('http://localhost:3000/cable');
-        this.urls = cable.subscriptions.create("UrlsListChannel", {
-            connected: () => {},
-            received: (data) => {
-                this.setState( { urls: data['urls']  });
-            },
-        });
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render() {
