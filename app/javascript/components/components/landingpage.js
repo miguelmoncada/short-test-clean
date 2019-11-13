@@ -111,7 +111,7 @@ class Landing extends Component {
                 <Grid className="home-grid">
                     <Cell col={12}>
                         <h3>
-                            100 Most Frequently URLs
+                            Top 100 Most Frequently URLs
                         </h3>
                     </Cell>
                 </Grid>
